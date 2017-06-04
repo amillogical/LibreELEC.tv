@@ -1,5 +1,14 @@
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/RenderManager.cpp	2017-04-21 14:42:16.371525222 +0200
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/RenderManager.cpp	2017-04-21 14:43:32.295525222 +0200
+@@ -316,7 +316,7 @@
+     m_lateframes = -1.0;
+     m_presentevent.notifyAll();
+     m_renderedOverlay = false;
+-    m_renderDebug = false;
++//    m_renderDebug = false;
+     m_clockSync.Reset();
+     m_dvdClock.SetVsyncAdjust(0);
+ 
 @@ -1287,7 +1287,7 @@
      double err = fmod(renderPts - nextFramePts, frametime);
      m_clockSync.m_error += err;
@@ -14,7 +23,7 @@
        // we are really late. The likelihood that we recover decreases the greater m_lateframes
        // get. Skipping a frame is easier than having decoder dropping one (lateframes > 10)
 -      double x = (m_lateframes <= 6) ? 0.98 : 0;
-+      double x = (m_lateframes <= 6) ? 1.9 : 0;
++      double x = (m_lateframes <= 6) ? 3.9 : 0;
        if (renderPts < m_Queue[*iter].pts + x * frametime)
          break;
 +      CLog::Log(LOGDEBUG, "CRenderManager::PrepareNextRender m_QueueSkip:%d iter.pts:%0.3f front.pts:%0.3f renderPts:%0.3f  latency:%0.3f",
@@ -30,4 +39,25 @@
 +      m_lateframes = lateframes;
      else
        m_lateframes = 0;
-     
+ 
+--- a/xbmc/cores/VideoPlayer/VideoRenderers/DebugRenderer.cpp	2017-05-11 10:02:20.000000000 +0200
++++ b/xbmc/cores/VideoPlayer/VideoRenderers/DebugRenderer.cpp	2017-05-15 14:09:27.039080736 +0200
+@@ -108,7 +108,7 @@
+ {
+   std::vector<COverlay*> render;
+   std::vector<SElement>& list = m_buffers[idx];
+-  int posY = 0;
++  int posY = 200;
+   for (std::vector<SElement>::iterator it = list.begin(); it != list.end(); ++it)
+   {
+     COverlay* o = nullptr;
+@@ -121,7 +121,7 @@
+ 
+     COverlayText *text = dynamic_cast<COverlayText*>(o);
+     if (text)
+-      text->PrepareRender("arial.ttf", 1, 16, 0, m_font, m_fontBorder);
++      text->PrepareRender("teletext.ttf", 1, 16, 0, m_font, m_fontBorder);
+ 
+     RESOLUTION_INFO res = g_graphicsContext.GetResInfo(g_graphicsContext.GetVideoResolution());
+ 
+
