@@ -47,7 +47,7 @@
 
   # Kernel to use. values can be:
     LINUX="custom"
-    CUSTOM_VERSION="Nougat-testing4"
+    CUSTOM_VERSION="Nougat-testing5"
     KERNEL_VERSION="834a470"
     KERNEL_URL="https://github.com/amillogical/linux-amlogic/archive/$KERNEL_VERSION.tar.gz"
     KERNEL_SOURCE_DIR="linux-amlogic-$KERNEL_VERSION*"
