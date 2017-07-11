@@ -1,14 +1,12 @@
 [Unit]
 Description=Samba NMB Daemon
-After=network.target samba-config.service
-ConditionPathExists=!/storage/.cache/services/samba.disabled
-ConditionPathExists=/run/samba/smb.conf
-Requires=samba-config.service
+After=network.target smbd.service
+ConditionPathExists=/storage/.cache/services/samba.conf
 
 [Service]
 Type=forking
-PIDFile=/run/samba/nmbd.pid
-ExecStart=/usr/sbin/nmbd
+PIDFile=/var/run/nmbd-smb.conf.pid
+ExecStart=/usr/bin/nmbd --configfile=/run/samba/smb.conf
 ExecReload=/bin/kill -HUP $MAINPID
 TimeoutStopSec=1s
 Restart=always
