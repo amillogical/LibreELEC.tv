@@ -49,7 +49,7 @@
   # default:  default mainline kernel
     LINUX="custom"
     CUSTOM_VERSION="Nougat-nougatexp1"
-    KERNEL_VERSION="db49444"
+    KERNEL_VERSION="68c2876"
     KERNEL_URL="https://github.com/amillogical/linux-amlogic/archive/$KERNEL_VERSION.tar.gz"
     KERNEL_SOURCE_DIR="linux-amlogic-$KERNEL_VERSION*"
     KERNEL_PATCH_DIRS="amlogic-3.14"
